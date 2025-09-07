@@ -1,0 +1,30 @@
+{
+  "name": "movie-reservation-system",
+  "version": "1.0.0",
+  "description": "A backend project to get my hands on node.js",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iamzaidakbar/movie-reservation-system.git"
+  },
+  "author": "Zaid Akbar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iamzaidakbar/movie-reservation-system/issues"
+  },
+  "homepage": "https://github.com/iamzaidakbar/movie-reservation-system#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.18.0",
+    "nodemon": "^3.1.10"
+  }
+}
