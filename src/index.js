@@ -1,11 +1,13 @@
+require("dotenv").config();
 const express = require("express");
+const bodyParser = require("body-parser");
 const cors = require("cors");
 const healthRoutes = require("./routes/health.routes");
 const errorHandler = require("./middleware/error.middleware");
 const connectDB = require("./config/db");
 
-require("dotenv").config();
 const app = express();
+app.use(bodyParser.json());
 
 // Middlewares
 app.use(express.json());
@@ -13,8 +15,10 @@ app.use(cors());
 
 // Database connection
 connectDB();
+
 // Routes
 app.use("/api/health", healthRoutes);
+app.use(`/${process.env.APP_VERSION}/auth`, require("./routes/auth.routes"));
 
 // Error Handler (last middleware)
 app.use(errorHandler);
