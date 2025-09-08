@@ -56,9 +56,6 @@ const BookingSchema = new mongoose.Schema(
   }
 );
 
-// Compound index: ensure same seats in the same show can’t be booked twice
-BookingSchema.index({ show: 1, seats: 1 }, { unique: true });
-
 // Expire bookings automatically if hold time passes (MongoDB TTL)
 BookingSchema.index({ holdExpiresAt: 1 }, { expireAfterSeconds: 0 });
 

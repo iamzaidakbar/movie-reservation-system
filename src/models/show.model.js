@@ -2,13 +2,13 @@ const mongoose = require("mongoose");
 
 const ShowSchema = new mongoose.Schema(
   {
-    movie: {
+    movieId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Movie",
       required: [true, "Movie reference is required"],
       index: true,
     },
-    screen: {
+    screenId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Screen",
       required: [true, "Screen reference is required"],
@@ -41,6 +41,6 @@ const ShowSchema = new mongoose.Schema(
 );
 
 // Prevent duplicate show timings on the same screen
-ShowSchema.index({ screen: 1, startTime: 1, endTime: 1 }, { unique: true });
+ShowSchema.index({ screenId: 1, startTime: 1, endTime: 1 }, { unique: true });
 
 module.exports = mongoose.model("Show", ShowSchema);
