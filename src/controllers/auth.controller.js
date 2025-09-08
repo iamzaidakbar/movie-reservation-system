@@ -19,7 +19,6 @@ const cookieOptions = {
 
 // ===== SIGNUP =====
 exports.signup = async (req, res) => {
-  console.log("Signup request body:", req.body);
   try {
     if (!req.body) {
       return res.status(400).json({ error: "Request body is missing" });
@@ -41,11 +40,10 @@ exports.signup = async (req, res) => {
     }
 
     const hash = await bcrypt.hash(password, 12);
-    const user = await User.create({ name, email, passwordHash: hash });
+    const user = await User.create({ name, email, password: hash }); // ✅ password field
 
     const token = generateToken(user._id);
 
-    // Set cookie
     res.cookie("token", token, cookieOptions);
 
     res.status(201).json({
@@ -71,12 +69,11 @@ exports.login = async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ error: "Invalid credentials" });
 
-    const ok = await user.verifyPassword(password);
+    const ok = await bcrypt.compare(password, user.password); // ✅ compare with stored hash
     if (!ok) return res.status(400).json({ error: "Invalid credentials" });
 
     const token = generateToken(user._id);
 
-    // Set cookie
     res.cookie("token", token, cookieOptions);
 
     res.json({

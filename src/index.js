@@ -4,10 +4,12 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const healthRoutes = require("./routes/health.routes");
 const errorHandler = require("./middleware/error.middleware");
+const cookieParser = require("cookie-parser");
 const connectDB = require("./config/db");
 
 const app = express();
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 // Middlewares
 app.use(express.json());
@@ -19,6 +21,7 @@ connectDB();
 // Routes
 app.use("/api/health", healthRoutes);
 app.use(`/${process.env.APP_VERSION}/auth`, require("./routes/auth.routes"));
+app.use(`/${process.env.APP_VERSION}/api`, require("./routes/theater.routes"));
 
 // Error Handler (last middleware)
 app.use(errorHandler);
