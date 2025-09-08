@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const ScreenSchema = new mongoose.Schema(
   {
-    theater: {
+    theaterId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Theater",
       required: [true, "Theater reference is required"],
@@ -18,14 +18,14 @@ const ScreenSchema = new mongoose.Schema(
     rows: {
       type: Number,
       required: [true, "Number of rows is required"],
-      min: [1, "Rows must be at least 1"],
-      max: [50, "Too many rows for a single screen"],
+      min: [5, "Rows must be at least 5"], // realistic
+      max: [30, "Too many rows for a single screen"],
     },
     cols: {
       type: Number,
       required: [true, "Number of columns is required"],
-      min: [1, "Columns must be at least 1"],
-      max: [50, "Too many columns for a single screen"],
+      min: [5, "Columns must be at least 5"], // realistic
+      max: [30, "Too many columns for a single screen"],
     },
   },
   {
@@ -34,6 +34,6 @@ const ScreenSchema = new mongoose.Schema(
 );
 
 // Compound index: unique screen name per theater
-ScreenSchema.index({ theater: 1, name: 1 }, { unique: true });
+ScreenSchema.index({ theaterId: 1, name: 1 }, { unique: true });
 
 module.exports = mongoose.model("Screen", ScreenSchema);

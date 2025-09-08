@@ -1,4 +1,5 @@
 const Theater = require("../models/theater.model");
+const Screen = require("../models/screen.model");
 
 // Create a new theater (admin only)
 const createTheater = async (req, res) => {
@@ -56,10 +57,20 @@ const getTheaters = async (req, res) => {
     }
 
     // Fetch theaters
-    const theaters = await Theater.find(filter)
+    let theaters = await Theater.find(filter)
       .select("-__v -createdAt -updatedAt")
       .skip(skip)
       .limit(limit);
+
+    // Dynamically update totalScreens for each theater
+    theaters = await Promise.all(
+      theaters.map(async (theater) => {
+        const screenCount = await Screen.countDocuments({
+          theaterId: theater._id,
+        });
+        return { ...theater.toObject(), totalScreens: screenCount };
+      })
+    );
 
     const total = await Theater.countDocuments(filter);
 

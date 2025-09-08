@@ -22,7 +22,7 @@ const TheaterSchema = new mongoose.Schema(
       trim: true,
       maxlength: [200, "Address too long"],
     },
-    totalScreens: { type: Number, required: true, default: 1 },
+    totalScreens: { type: Number, default: 0 },
   },
   {
     timestamps: true,

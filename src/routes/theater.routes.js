@@ -10,7 +10,7 @@ const {
   validateTheaterInput,
   validateTheaterId,
   validateTheaterUpdateInput,
-} = require("../utils/theater.valiation");
+} = require("../utils/validations/theater.valiation");
 
 const router = express.Router();
 
@@ -21,7 +21,7 @@ router.post(
   createTheater
 );
 
-router.get("/theater/view", getTheaters);
+router.get("/theaters/view", getTheaters);
 router.get("/theater/:id", authenticate, validateTheaterId, getTheaterById);
 router.put(
   "/theater/:id",

@@ -1,4 +1,4 @@
-const Theater = require("../models/theater.model");
+const Theater = require("../../models/theater.model");
 const mongoose = require("mongoose");
 
 const validateTheaterInput = async (req, res, next) => {
